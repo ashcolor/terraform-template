@@ -8,7 +8,7 @@
 
 ### EC2 + ALB
 
-![システム構成図](./web-ec2_rds/diagram.drawio)
+![システム構成図](./web-ec2_rds/diagram.drawio.svg)
 
 ## 準備
 
