@@ -4,6 +4,12 @@
 
 - [Terraform](https://registry.terraform.io/namespaces/hashicorp)
 
+## 構成一覧
+
+### EC2 + ALB
+
+![システム構成図](./web-ec2_rds/diagram.drawio)
+
 ## 準備
 
 1. IAMを作成する
@@ -74,3 +80,6 @@ terraform destroy
 ```bash
 terraform console
 ```
+
+## 参考
+[作りながら覚えるTerraform入門](https://qiita.com/m-oka-system/items/6103bbb9f103db1fea0e)
