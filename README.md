@@ -4,13 +4,11 @@
 
 ### ALB + EC2 + RDS
 
-#### システム構成図
-
 ![システム構成図](./alb_ec2_rds/01_diagram.drawio.svg)
 
 ## 準備
 
-1. `AdministratorAccess`の権限を持ったIAMを作成して、アクセスキーを取得する
+1. `AdministratorAccess`の権限を持ったIAMのアクセスキーを取得してAWS CLIに設定する
 
 1. `tfstate`ファイルを保存するバケットを作成する
 
@@ -20,13 +18,10 @@
     bucket = "{prefix}-terraform-state"
     ```
 
-1. `user_data.sh`にミドルウェアのインストールと設定を記載する
-
-
 1. 環境ディレクトリに移動
 
     ```bash
-    cd [dev/stg/prod]
+    cd {ディレクトリ名}
     ```
 
 1. 変数定義ファイルをコピーして、必要に応じて変数を書き換える
