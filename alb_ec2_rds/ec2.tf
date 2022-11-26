@@ -42,14 +42,14 @@ data "aws_ssm_parameter" "amzn2_latest_ami" {
 }
 
 resource "aws_instance" "web_01" {
-  ami                     = data.aws_ssm_parameter.amzn2_latest_ami.value
+  ami                    = data.aws_ssm_parameter.amzn2_latest_ami.value
   vpc_security_group_ids = [aws_security_group.web_sg.id]
-  instance_type           = "t2.micro"
+  instance_type          = "t2.micro"
   # iam_instance_profile    = aws_iam_instance_profile.ec2.name
   disable_api_termination = false
   monitoring              = false
   user_data               = file("./param/user_data.sh")
-  subnet_id              = aws_subnet.private_subnet_1a.id
+  subnet_id               = aws_subnet.private_subnet_1a.id
   key_name                = aws_key_pair.main.key_name
 
   private_ip = "10.0.21.11"

@@ -21,7 +21,7 @@ resource "aws_lb" "alb" {
 
 # Target group
 resource "aws_lb_target_group" "alb_tg" {
-  name                 = "${var.prefix}-alb-tg"
+  name = "${var.prefix}-alb-tg"
   # target_type          = "ip"
   vpc_id               = aws_vpc.vpc.id
   port                 = 80

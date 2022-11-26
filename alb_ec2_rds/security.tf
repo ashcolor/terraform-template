@@ -58,21 +58,21 @@ data "http" "ipify" {
 # }
 
 resource "aws_security_group_rule" "in_ssh_from_myip" {
-  type              = "ingress"
-  from_port         = 22
-  to_port           = 22
-  protocol          = "tcp"
-  cidr_blocks       = ["0.0.0.0/0"]
+  type        = "ingress"
+  from_port   = 22
+  to_port     = 22
+  protocol    = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
   # cidr_blocks       = [local.allowed_cidr]
   security_group_id = aws_security_group.web_sg.id
 }
 
 resource "aws_security_group_rule" "in_http_from_myip" {
-  type              = "ingress"
-  from_port         = 80
-  to_port           = 80
-  protocol          = "tcp"
-  cidr_blocks       = ["0.0.0.0/0"]
+  type        = "ingress"
+  from_port   = 80
+  to_port     = 80
+  protocol    = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
   # cidr_blocks       = [local.allowed_cidr]
   security_group_id = aws_security_group.web_sg.id
 }

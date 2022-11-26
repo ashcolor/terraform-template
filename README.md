@@ -1,85 +1,62 @@
 # Terraform Webシステムテンプレート
 
-## ドキュメント
-
-- [Terraform](https://registry.terraform.io/namespaces/hashicorp)
-
 ## 構成一覧
 
-### EC2 + ALB
+### ALB + EC2 + RDS
 
-![システム構成図](./web-ec2_rds/diagram.drawio.svg)
+#### システム構成図
+
+![システム構成図](./alb_ec2_rds/01_diagram.drawio.svg)
 
 ## 準備
 
-1. IAMを作成する
+1. `AdministratorAccess`の権限を持ったIAMを作成して、アクセスキーを取得する
 
-1. tfstateファイルを保存するバケットを作成する
+1. `tfstate`ファイルを保存するバケットを作成する
 
-1. provider.tfのバケット名を変更する（この部分では変数を使用できないため）
-```
-  bucket = "{prefix}-terraform-state"
-```
+1. `provider.tf`の`bucket`を上記で作成したバケット名に変更する
 
-1. user_data.shにミドルウェアのインストールと設定を記載する
+    ```HCL
+    bucket = "{prefix}-terraform-state"
+    ```
+
+1. `user_data.sh`にミドルウェアのインストールと設定を記載する
 
 
 1. 環境ディレクトリに移動
 
-```
-cd [dev/stg/prod]
-```
+    ```bash
+    cd [dev/stg/prod]
+    ```
 
-1. 変数定義ファイルをコピー
-```
-cp terraform.tfvars.example terraform.tfvars
-```
+1. 変数定義ファイルをコピーして、必要に応じて変数を書き換える
 
-  必要に応じて変数を書き換える
+    ```bash
+    cp terraform.tfvars.example terraform.tfvars
+    ```
 
 ## 実行手順
 
-プラグインのインストール
+1. プラグインのインストール
 
-```yaml
-terraform init
-```
+    ```bash
+    terraform init
+    ```
 
-構文チェック
+1. 実行計画の表示
 
-```bash
-terraform validate
-```
+    ```bash
+    terraform plan
+    ```
 
-tfファイルのフォーマット
+1. リソースの適用
 
-```bash
-terraform fmt -recursive
-```
+    ```bash
+    terraform apply
+    ```
 
-実行計画の表示
+1. リソースの削除
 
-```bash
-terraform plan
-```
-
-リソースの適用
-
-```yaml
-terraform apply
-```
-
-リソースの削除
-
-```bash
-terraform destroy
-```
-
-関数の動作確認
-
-```bash
-terraform console
-```
-
-## 参考
-[作りながら覚えるTerraform入門](https://qiita.com/m-oka-system/items/6103bbb9f103db1fea0e)
+    ```bash
+    terraform destroy
+    ```
