@@ -1,2 +1,10 @@
+# Common
 prefix = "system"
-db_root_password= "root_secret"
+
+# EC2
+web_instance_class = "t2.micro"
+
+# RDS
+db_instance_class = "db.t3.medium"
+db_database_name = "my_app"
+db_root_password = "root_secret"

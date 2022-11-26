@@ -1,7 +1,7 @@
 ################################
 # ELB
 ################################
-# ELB
+# ALB
 resource "aws_lb" "alb" {
   name                       = "${var.prefix}-alb"
   load_balancer_type         = "application"
