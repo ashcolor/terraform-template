@@ -36,12 +36,6 @@ resource "aws_key_pair" "main" {
     }
 }
 
-resource "local_sensitive_file" "keypair_pem" {
-    filename = "./.ssh/id_rsa.pem"
-    content = tls_private_key.main.private_key_pem
-    file_permission = "0600"
-}
-
 ################################
 # EC2
 ################################
@@ -63,6 +57,12 @@ resource "aws_instance" "bastion" {
 # Output
 ################################
 output "bastion_public_ip" {
-  description = "The public IP address assigned to the instanceue"
+  description = "踏み台サーバ外部IP"
   value       = aws_instance.bastion.public_ip
+}
+
+resource "local_sensitive_file" "keypair_pem" {
+    filename = "./.ssh/id_rsa.pem"
+    content = tls_private_key.main.private_key_pem
+    file_permission = "0600"
 }
