@@ -23,10 +23,10 @@ resource "aws_security_group" "bastion" {
 # EC2
 ################################
 resource "aws_instance" "bastion" {
-  ami                         = data.aws_ssm_parameter.amzn2_latest_ami.value
-  instance_type               = "t2.nano"
-  key_name                    = aws_key_pair.main.key_name
-  vpc_security_group_ids      = [
+  ami           = data.aws_ssm_parameter.amzn2_latest_ami.value
+  instance_type = "t2.nano"
+  key_name      = aws_key_pair.main.key_name
+  vpc_security_group_ids = [
     "${aws_security_group.bastion.id}"
   ]
   subnet_id                   = aws_subnet.public_subnet_1a.id

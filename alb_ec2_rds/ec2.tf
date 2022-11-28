@@ -8,7 +8,7 @@ data "aws_ssm_parameter" "amzn2_latest_ami" {
 resource "aws_instance" "web_01" {
   ami                    = data.aws_ssm_parameter.amzn2_latest_ami.value
   vpc_security_group_ids = [aws_security_group.web_sg.id]
-  instance_type          = "${var.web_instance_class}"
+  instance_type          = var.web_instance_class
   # iam_instance_profile    = aws_iam_instance_profile.ec2.name
   disable_api_termination = false
   monitoring              = false
@@ -24,8 +24,8 @@ resource "aws_instance" "web_01" {
   # }
 
   root_block_device {
-    volume_size           = 30
-    volume_type           = "gp2"
+    volume_size = 30
+    volume_type = "gp2"
   }
 
   tags = {
