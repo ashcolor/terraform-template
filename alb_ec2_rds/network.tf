@@ -91,6 +91,17 @@ resource "aws_subnet" "private_subnet_1c" {
   }
 }
 
+resource "aws_subnet" "private_subnet_1d" {
+  vpc_id                  = aws_vpc.vpc.id
+  availability_zone       = "ap-northeast-1d"
+  cidr_block              = cidrsubnet(var.vpc_cidr, 8, 23) # 10.0.23.0/24
+  map_public_ip_on_launch = false
+
+  tags = {
+    "Name" = "${var.prefix}-private-subnet-1d"
+  }
+}
+
 ################################
 # Public Route Table
 ################################

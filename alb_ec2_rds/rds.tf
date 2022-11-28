@@ -3,8 +3,8 @@
 ################################
 # Subnet Group
 resource "aws_db_subnet_group" "default" {
-  name = "test"
-  subnet_ids = ["${aws_subnet.private_subnet_1a.id}", "${aws_subnet.private_subnet_1c.id}"]
+  name       = "test"
+  subnet_ids = ["${aws_subnet.private_subnet_1a.id}", "${aws_subnet.private_subnet_1c.id}", "${aws_subnet.private_subnet_1d.id}"]
 
 }
 
@@ -41,12 +41,13 @@ resource "aws_db_parameter_group" "mysql" {
 # DB Cluster
 # Doc:https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/rds_cluster
 resource "aws_rds_cluster" "cluster" {
-  cluster_identifier               = "${var.prefix}-db-cluster"
-  db_subnet_group_name             = aws_db_subnet_group.default.name
-  database_name                    = "${var.db_database_name}"
-  master_username                  = "root"
-  master_password                  = var.db_root_password
-  availability_zones               = ["ap-northeast-1a","ap-northeast-1c"]
+  cluster_identifier   = "${var.prefix}-db-cluster"
+  db_subnet_group_name = aws_db_subnet_group.default.name
+  database_name        = var.db_database_name
+  master_username      = "root"
+  master_password      = var.db_root_password
+  # Auroraは3つのゾーンを指定する必要がある
+  availability_zones               = ["ap-northeast-1a", "ap-northeast-1c", "ap-northeast-1d"]
   engine                           = "aurora-mysql"
   engine_version                   = "8.0.mysql_aurora.3.02.2"
   vpc_security_group_ids           = [aws_security_group.rds_sg.id]
@@ -55,9 +56,9 @@ resource "aws_rds_cluster" "cluster" {
   skip_final_snapshot              = true
 
   # JST 0:00-2:00
-  preferred_backup_window          = "15:00-17:00"
+  preferred_backup_window = "15:00-17:00"
   # JST Mon:02:00-Mon:03:00
-  preferred_maintenance_window     = "Sun:17:00-Sun:18:00"
+  preferred_maintenance_window = "Sun:17:00-Sun:18:00"
 }
 
 # DB Instance
@@ -66,7 +67,7 @@ resource "aws_rds_cluster_instance" "cluster_instances" {
   identifier          = "${var.prefix}-db-instance"
   count               = 1
   cluster_identifier  = aws_rds_cluster.cluster.id
-  instance_class      = "${var.db_instance_class}"
+  instance_class      = var.db_instance_class
   engine              = aws_rds_cluster.cluster.engine
   engine_version      = aws_rds_cluster.cluster.engine_version
   publicly_accessible = false
