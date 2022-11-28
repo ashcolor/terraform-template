@@ -1,12 +1,18 @@
 # Common
 variable "prefix" {
-  description = "Project name given as a prefix"
+  description = "プロジェクトプリフィックス"
+  type        = string
+}
+
+# Route53
+variable "my_domain" {
+  description = "ドメイン"
   type        = string
 }
 
 # VPC
 variable "vpc_cidr" {
-  description = "The CIDR block of the VPC"
+  description = "VPC CIDRブロック"
   type        = string
   default     = "10.0.0.0/16"
 }
@@ -31,6 +37,6 @@ variable "db_database_name" {
 
 
 variable "db_root_password" {
-  description = "DB Root Password"
+  description = "DBルートパスワード"
   type        = string
 }

@@ -38,6 +38,17 @@
     terraform init
     ```
 
+1. ネームサーバの設定 ※Route53を使用する場合
+
+1. `aws_route53_zoneのみを適用する`
+
+    ```bash
+    terraform apply --target=aws_route53_zone.public
+    ```
+
+1. DNSの登録
+
+
 1. 実行計画の表示
 
     ```bash

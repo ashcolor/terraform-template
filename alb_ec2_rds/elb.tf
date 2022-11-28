@@ -54,54 +54,28 @@ resource "aws_lb_listener" "http" {
   protocol          = "HTTP"
 
   default_action {
+    type = "redirect"
+
+    redirect {
+      protocol    = "HTTPS"
+      port        = "443"
+      host        = "#{host}"
+      path        = "/#{path}"
+      query       = "#{query}"
+      status_code = "HTTP_301"
+    }
+  }
+}
+
+resource "aws_lb_listener" "https" {
+  load_balancer_arn = aws_lb.alb.arn
+  port              = "443"
+  protocol          = "HTTPS"
+  certificate_arn   = aws_acm_certificate.public.arn
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+
+  default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.alb_tg.arn
   }
-  #   redirect {
-  #     protocol    = "HTTPS"
-  #     port        = "443"
-  #     host        = "#{host}"
-  #     path        = "/#{path}"
-  #     query       = "#{query}"
-  #     status_code = "HTTP_301"
-  #   }
-  # }
 }
-
-
-# resource "aws_lb_listener" "http" {
-#   load_balancer_arn = aws_lb.alb.arn
-#   port              = "80"
-#   protocol          = "HTTP"
-
-#   default_action {
-#     type = "redirect" # forwad / fixed-response / redirect
-
-#     redirect {
-#       protocol    = "HTTPS"
-#       port        = "443"
-#       host        = "#{host}"
-#       path        = "/#{path}"
-#       query       = "#{query}"
-#       status_code = "HTTP_301"
-#     }
-#   }
-# }
-
-# resource "aws_lb_listener" "https" {
-#   load_balancer_arn = aws_lb.alb.arn
-#   port              = "443"
-#   protocol          = "HTTPS"
-#   certificate_arn   = aws_acm_certificate.public.arn
-#   ssl_policy        = "ELBSecurityPolicy-2016-08"
-
-#   default_action {
-#     type             = "forward"
-#     target_group_arn = aws_lb_target_group.alb_tg.arn
-#   }
-# }
-
-# output "alb_public_ip" {
-#   description = "The public IP address assigned to the instanceue"
-#   value       = aws_instance.web_01.public_ip
-# }

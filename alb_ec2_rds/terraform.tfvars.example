@@ -1,6 +1,9 @@
 # Common
 prefix = "system"
 
+# Route53
+my_domain = "example.com"
+
 # EC2
 web_instance_class = "t2.micro"
 
