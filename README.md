@@ -6,6 +6,10 @@
 
 ![システム構成図](./alb_ec2_rds/01_diagram.drawio.svg)
 
+### EC2 + RDS
+
+![システム構成図](./ec2_rds/01_diagram.drawio.svg)
+
 ## 準備
 
 1. `AdministratorAccess`の権限を持ったIAMのアクセスキーを取得してAWS CLIに設定する
