@@ -48,9 +48,10 @@ resource "aws_security_group" "web_sg" {
   }
 }
 
-data "http" "ipify" {
-  url = "http://api.ipify.org"
-}
+# 自宅IPを登録する場合
+# data "http" "ipify" {
+#   url = "http://api.ipify.org"
+# }
 
 # locals {
 #   myip         = chomp(data.http.ipify.body)
